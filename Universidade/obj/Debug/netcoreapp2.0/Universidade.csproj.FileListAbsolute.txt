@@ -9,3 +9,14 @@ C:\Users\Leonardo\Source\Repos\MvcMovie\CoreLab\Universidade\obj\Debug\netcoreap
 C:\Users\Leonardo\Source\Repos\MvcMovie\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.AssemblyInfo.cs
 C:\Users\Leonardo\Source\Repos\MvcMovie\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.dll
 C:\Users\Leonardo\Source\Repos\MvcMovie\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.pdb
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\bin\Debug\netcoreapp2.0\Universidade.deps.json
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\bin\Debug\netcoreapp2.0\Universidade.runtimeconfig.json
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\bin\Debug\netcoreapp2.0\Universidade.runtimeconfig.dev.json
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\bin\Debug\netcoreapp2.0\Universidade.dll
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\bin\Debug\netcoreapp2.0\Universidade.pdb
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.csprojResolveAssemblyReference.cache
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.csproj.CoreCompileInputs.cache
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.AssemblyInfoInputs.cache
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.AssemblyInfo.cs
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.dll
+C:\Users\Leonardo\Documents\Visual Studio 2017\Projects\CoreLab\Universidade\obj\Debug\netcoreapp2.0\Universidade.pdb

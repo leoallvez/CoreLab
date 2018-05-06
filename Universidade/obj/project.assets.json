@@ -13130,11 +13130,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Leonardo\\Source\\Repos\\MvcMovie\\CoreLab\\Universidade\\Universidade.csproj",
+      "projectUniqueName": "C:\\Users\\Leonardo\\Documents\\Visual Studio 2017\\Projects\\CoreLab\\Universidade\\Universidade.csproj",
       "projectName": "Universidade",
-      "projectPath": "C:\\Users\\Leonardo\\Source\\Repos\\MvcMovie\\CoreLab\\Universidade\\Universidade.csproj",
+      "projectPath": "C:\\Users\\Leonardo\\Documents\\Visual Studio 2017\\Projects\\CoreLab\\Universidade\\Universidade.csproj",
       "packagesPath": "C:\\Users\\Leonardo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Leonardo\\Source\\Repos\\MvcMovie\\CoreLab\\Universidade\\obj\\",
+      "outputPath": "C:\\Users\\Leonardo\\Documents\\Visual Studio 2017\\Projects\\CoreLab\\Universidade\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
