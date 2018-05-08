@@ -102,26 +102,46 @@ namespace Universidade.Controllers
                 return NotFound();
             }
 
-            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
+            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
 
-            if (departamento == null)
+            if (instituicao == null)
             {
                 return NotFound();
             }
 
-            return View(departamento);
+            return View(instituicao);
         }
 
-        public IActionResult Delete(long id)
+        public async Task<IActionResult> Delete(long? id)
         {
-            return View(Instituicoes.Where(i => i.InstituicaoID == id).First());
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
+
+            if (instituicao == null)
+            {
+                return NotFound();
+            }
+
+            return View(instituicao);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(Instituicao i)
+        public async Task<IActionResult> DeleteConfirmed(long? id)
         {
-            return RedirectToAction("Index");
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
+            _context.Instituicoes.Remove(instituicao);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
 
