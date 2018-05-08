@@ -3,54 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Universidade.Data;
 using Universidade.Models;
 
 namespace Universidade.Controllers
 {
     public class InstituicaoController : Controller
     {
-        private static IList<Instituicao> Instituicoes = new List<Instituicao>()
+        private readonly IESContext _context;
+
+        public InstituicaoController(IESContext context)
         {
-            new Instituicao()
-            {
-                InstituicaoID = 1,
-                Nome = "UniParaná",
-                Endereco = "Paraná"
+            this._context = context;
+        }
 
-            },
-            new Instituicao()
-            {
-                InstituicaoID = 2,
-                Nome = "UniSanta",
-                Endereco = "Santa Catarina"
-
-            },
-            new Instituicao()
-            {
-                InstituicaoID = 3,
-                Nome = "UniSãoPaulo",
-                Endereco = "São Paulo"
-
-            },
-            new Instituicao()
-            {
-                InstituicaoID = 4,
-                Nome = "UniSulgrandense",
-                Endereco = "Rio Grande do Sul"
-
-            },
-            new Instituicao()
-            {
-                InstituicaoID = 5,
-                Nome = "UniCarioca",
-                Endereco = "Rio de Janeiro"
-
-            }
-        };
-
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(Instituicoes);
+            return View(await _context.Instituicoes.OrderBy(c => c.Nome).ToListAsync());
         }
 
         public IActionResult Create()
@@ -60,37 +30,86 @@ namespace Universidade.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Instituicao instituicao)
+        public async Task<IActionResult> Create([Bind("InstituicaoID", "Nome", "Endereco")] Instituicao instituicao)
         {
-            Instituicoes.Add(instituicao);
-            instituicao.InstituicaoID = Instituicoes.Select(
-                i => i.InstituicaoID).Max() + 1;
+            try
+            {
+                _context.Add(instituicao);
+                await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Não foi possível inserir os dados.");
+            }
+            return View(instituicao);
         }
 
-        public IActionResult Edit(long id)
+        public async Task<IActionResult> Edit(long? id)
         {
-            return View(Instituicoes.Where(
-                i => i.InstituicaoID == id).First());
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
+
+            if (instituicao == null)
+            {
+                return NotFound();
+            }
+
+            return View(instituicao);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Instituicao i)
+        public async Task<IActionResult> Edit(long? id, [Bind("InstituicaoID", "Nome", "Endereco")] Instituicao instituicao)
         {
-            Instituicoes.Remove(Instituicoes
-                .Where(m => m.InstituicaoID == i.InstituicaoID).First());
+            if (id != instituicao.InstituicaoID)
+            {
+                return NotFound();
+            }
 
-            Instituicoes.Add(i);
-
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(instituicao);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!InstituicaoExists(instituicao.InstituicaoID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(instituicao);
         }
 
-        public IActionResult Details(long id)
+        public async Task<IActionResult> Details(long? id)
         {
-            return View(Instituicoes.Where(i => 
-                    i.InstituicaoID == id).First());
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
+
+            if (departamento == null)
+            {
+                return NotFound();
+            }
+
+            return View(departamento);
         }
 
         public IActionResult Delete(long id)
@@ -103,6 +122,12 @@ namespace Universidade.Controllers
         public IActionResult Delete(Instituicao i)
         {
             return RedirectToAction("Index");
+        }
+
+
+        private bool InstituicaoExists(long? id)
+        {
+            return _context.Instituicoes.Any(i => i.InstituicaoID == id);
         }
     }
 }
