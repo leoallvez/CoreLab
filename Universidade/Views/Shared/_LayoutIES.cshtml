@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    @RenderSection("Style", required: false)
+</head>
+<body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+        <h5 class="my-0 mr-md-auto font-weight-normal"><b>CoreLab</b></h5>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="#">Instituições</a>
+            <a class="p-2 text-dark" href="#">Departamentos</a>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Listar
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <hr>
+            <p class="text-muted">
+                <a href="https://www.linkedin.com/in/leoallvez/">
+                    <b>Leonardo Alves</b> &bull; @DateTime.Now.ToString("yyyy")
+                </a>
+            </p>
+        </div>
+    </footer>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    @RenderSection("ScriptPage", required: false)
+</body>
+</html>
+
