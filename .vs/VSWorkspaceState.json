@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Universidade"
+    "\\Universidade",
+    "\\Universidade\\wwwroot",
+    "\\Universidade\\wwwroot\\css"
   ],
   "SelectedNode": "\\Universidade\\Controllers",
   "PreviewInSolutionExplorer": false

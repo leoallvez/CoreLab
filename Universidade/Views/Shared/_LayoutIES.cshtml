@@ -2,7 +2,6 @@
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -10,7 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/css/bootstrap.min.css" />
-    @RenderSection("Style", required: false)
+    <link rel="stylesheet" href="~/css/datatables.min.css" />
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
@@ -23,7 +23,9 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                Listar
+                <h4>@RenderSection("PageTitle", required: false)</h4>
+                <hr />
+                @RenderSection("CreateButton", required: false)
             </div>
             <div class="card-body">
                 <div class="row">
@@ -49,4 +51,5 @@
     @RenderSection("ScriptPage", required: false)
 </body>
 </html>
+
 
