@@ -1,54 +1,48 @@
 ﻿@{
     Layout = "_LayoutIES";
+    ViewBag.Title = "Instituição";
 }
 
 @model IEnumerable<Universidade.Models.Instituicao>
 
-@section PageTitle
-{
-    Instituiçõe
-}
+<table class="table table_list" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Endereco)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Endereco)
+                </td>
+                <td>
+                    @Html.ActionLink(" ", "Edit", new { @id = item.InstituicaoID, }, new { @class = "ion-ios-compose-outline", @style = "font-size: 30px", @title = "Editar" })
+                    @Html.ActionLink(" ", "Details", new { id = item.InstituicaoID }, new { @class = "ion-document", @style = "font-size: 30px", @title = "Visualizar" })
+                    @Html.ActionLink(" ", "Delete", new { id = item.InstituicaoID }, new { @class = "ion-android-delete", @style = "font-size: 30px", @title = "Excluir" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-@section CreateButton
-{
+@section CardHeader
+    {
     <a class="btn btn-primary btn-sm" asp-action="Create">Create New</a>
 }
-
-
-    <table class="table table_list" style="width:100%">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Nome)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Endereco)
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nome)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Endereco)
-                    </td>
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new { @id = item.InstituicaoID, }, new { @class = "ion-ios-compose-outline", @style = "font-size: 30px", @title = "Editar" })
-                        @Html.ActionLink(" ", "Details", new { id = item.InstituicaoID }, new { @class = "ion-document", @style = "font-size: 30px", @title = "Visualizar" })
-                        @Html.ActionLink(" ", "Delete", new { id = item.InstituicaoID }, new { @class = "ion-android-delete", @style = "font-size: 30px", @title = "Excluir" })
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
 
 @section Styles
     {
@@ -57,13 +51,14 @@
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 }
 
-@section ScriptPage
-    {
+@section Scripts
+{
     <script src="~/js/datatables.min.js"></script>
     <script src="~/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('.table_list').DataTable({
+                "order": [[1, "asc"]],
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
