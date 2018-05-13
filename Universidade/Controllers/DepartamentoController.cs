@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Universidade.Data;
 using Universidade.Models;
@@ -20,17 +21,22 @@ namespace Universidade.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Departamentos.OrderBy(c => c.Nome).ToListAsync());
+            return View(await _context.Departamentos.Include(m => m.Instituicao)
+                .OrderBy(c => c.Nome).ToListAsync());
         }
 
         public IActionResult Create()
         {
+            var instiuicoes = _context.Instituicoes.OrderBy(i => i.Nome).ToList();
+
+            instiuicoes.Insert(0, new Instituicao() { InstituicaoID = 0, Nome = "Selecione" });
+            ViewBag.Instituicoes = instiuicoes;
             return View();
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome")] Departamento departamento)
+        public async Task<IActionResult> Create([Bind("Nome", "InstituicaoID")] Departamento departamento)
         {
             try
             {
@@ -64,17 +70,21 @@ namespace Universidade.Controllers
                 return NotFound();
             }
 
+           ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoID);
+
             return View(departamento);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long? id, [Bind("DepartamentoID", "Nome")] Departamento departamento)
+        public async Task<IActionResult> Edit(long? id, [Bind("DepartamentoID", "InstituicaoID", "Nome")] Departamento departamento)
         {
             if(id != departamento.DepartamentoID)
             {
                 return NotFound();
             }
+
+            ViewBag.Instituicoes = new SelectList(_context.Instituicoes.OrderBy(b => b.Nome), "InstituicaoID", "Nome", departamento.InstituicaoID ?? null);
 
             if (ModelState.IsValid)
             {
@@ -108,6 +118,8 @@ namespace Universidade.Controllers
 
             var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
 
+            _context.Instituicoes.Where(i => i.InstituicaoID == departamento.InstituicaoID).Load();
+
             if (departamento == null)
             {
                 return NotFound();
@@ -124,6 +136,8 @@ namespace Universidade.Controllers
             }
 
             var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
+
+            _context.Instituicoes.Where(i => i.InstituicaoID == departamento.InstituicaoID).Load();
 
             if (departamento == null)
             {
@@ -144,6 +158,8 @@ namespace Universidade.Controllers
 
             var departamento = await _context.Departamentos.SingleOrDefaultAsync(m => m.DepartamentoID == id);
             _context.Departamentos.Remove(departamento);
+
+            TempData["Messagem"] = "Departamento" + departamento.Nome.ToUpper() + "foi removido.";
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
