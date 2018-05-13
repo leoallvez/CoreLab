@@ -1,0 +1,32 @@
+@model IEnumerable<Universidade.Models.Departamento>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+       Departamentos
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Nome
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => i.Nome)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+    <div class="panel-footer panel-info">
+
+    </div>
+</div>
