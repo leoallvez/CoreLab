@@ -5028,6 +5028,16 @@
         "runtime": {
           "lib/netstandard1.3/Microsoft.WindowsAzure.Storage.dll": {}
         }
+      },
+      "Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.0",
+        "compile": {
+          "bin/placeholder/Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Models.dll": {}
+        }
       }
     }
   },
@@ -13114,13 +13124,19 @@
         "windowsazure.storage.8.1.4.nupkg.sha512",
         "windowsazure.storage.nuspec"
       ]
+    },
+    "Models/1.0.0": {
+      "type": "project",
+      "path": "../Models/Models.csproj",
+      "msbuildProject": "../Models/Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.6",
       "Microsoft.NETCore.App >= 2.0.0",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.3",
+      "Models >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -13152,7 +13168,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Leonardo\\Documents\\Visual Studio 2017\\Projects\\CoreLab\\Models\\Models.csproj": {
+              "projectPath": "C:\\Users\\Leonardo\\Documents\\Visual Studio 2017\\Projects\\CoreLab\\Models\\Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

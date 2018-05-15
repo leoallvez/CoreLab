@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Universidade.Data;
-using Universidade.Models;
+using Models.Cadastros;
 
 namespace Universidade.Controllers
 {
