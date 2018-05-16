@@ -6,21 +6,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Universidade.Data;
 using Models.Cadastros;
+using Universidade.Data.DAL.Cadastros;
 
 namespace Universidade.Controllers
 {
     public class InstituicaoController : Controller
     {
         private readonly IESContext _context;
+        private readonly InstituicaoDAL instituicaoDAL;
 
         public InstituicaoController(IESContext context)
         {
             this._context = context;
+            instituicaoDAL = new InstituicaoDAL(context);
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Instituicoes.OrderBy(c => c.Nome).ToListAsync());
+            return View(await instituicaoDAL.ObterInstituicoesClassificadasPorNome().ToListAsync());
         }
 
         public IActionResult Create()
@@ -146,10 +149,26 @@ namespace Universidade.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         private bool InstituicaoExists(long? id)
         {
             return _context.Instituicoes.Any(i => i.InstituicaoID == id);
+        }
+
+        private async Task<IActionResult> ObterVisaoInstituicaoPorId(long? id)
+        {
+            if (!id.HasValue)
+            {
+                return NotFound();
+            }
+
+            var instituicao = await instituicaoDAL.ObterInstituicaoPorId((long)id);
+
+            if(instituicao != null)
+            {
+                return NotFound();
+            }
+
+            return View(instituicao);
         }
     }
 }

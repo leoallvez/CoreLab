@@ -23,8 +23,5 @@ namespace Universidade.Data
             modelBuilder.Entity<Departamento>().ToTable("Instituicoes");
         }
         */
-
-
-
     }
 }
