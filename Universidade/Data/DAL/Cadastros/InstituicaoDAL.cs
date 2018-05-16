@@ -27,5 +27,29 @@ namespace Universidade.Data.DAL.Cadastros
                 .Include(i => i.Departamentos)
                 .SingleOrDefaultAsync(m => m.InstituicaoID == id);
         }
+
+        public async Task<Instituicao> GravarInstituicao(Instituicao instituicao)
+        {
+            if(instituicao.InstituicaoID > 0)
+            {
+                _context.Instituicoes.Add(instituicao);
+
+            }
+            else
+            {
+                _context.Instituicoes.Update(instituicao);
+            }
+
+            await _context.SaveChangesAsync();
+            return instituicao;
+        }
+
+        public async Task<Instituicao> ElimitarInstituicaoPorId(long id)
+        {
+            Instituicao instituicao = await ObterInstituicaoPorId(id);
+            _context.Instituicoes.Remove(instituicao);
+            await _context.SaveChangesAsync();
+            return instituicao;
+        }
     }
 }

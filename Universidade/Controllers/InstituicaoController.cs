@@ -37,12 +37,13 @@ namespace Universidade.Controllers
         {
             try
             {
-                _context.Add(instituicao);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await instituicaoDAL.GravarInstituicao(instituicao);
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            catch (Exception)
+            catch (DbUpdateException)
             {
                 ModelState.AddModelError("", "Não foi possível inserir os dados.");
             }
@@ -51,19 +52,7 @@ namespace Universidade.Controllers
 
         public async Task<IActionResult> Edit(long? id)
         {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
-
-            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
-
-            if (instituicao == null)
-            {
-                return NotFound();
-            }
-
-            return View(instituicao);
+            return await ObterVisaoInstituicaoPorId(id);
         }
 
         [HttpPost]
@@ -79,12 +68,11 @@ namespace Universidade.Controllers
             {
                 try
                 {
-                    _context.Update(instituicao);
-                    await _context.SaveChangesAsync();
+                    await instituicaoDAL.GravarInstituicao(instituicao);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InstituicaoExists(instituicao.InstituicaoID))
+                    if (!await InstituicaoExists(instituicao.InstituicaoID))
                     {
                         return NotFound();
                     }
@@ -100,58 +88,27 @@ namespace Universidade.Controllers
 
         public async Task<IActionResult> Details(long? id)
         {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
-
-            var instituicao = await _context
-                .Instituicoes.Include(d => d.Departamentos)
-                .SingleOrDefaultAsync(m => m.InstituicaoID == id);
-
-            if (instituicao == null)
-            {
-                return NotFound();
-            }
-
-            return View(instituicao);
+            return await ObterVisaoInstituicaoPorId(id);
         }
 
         public async Task<IActionResult> Delete(long? id)
         {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
-
-            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
-
-            if (instituicao == null)
-            {
-                return NotFound();
-            }
-
-            return View(instituicao);
+            return await ObterVisaoInstituicaoPorId(id);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long? id)
         {
-            if (!id.HasValue)
-            {
-                return NotFound();
-            }
+            var instituicao = await instituicaoDAL.ElimitarInstituicaoPorId((long)id);
 
-            var instituicao = await _context.Instituicoes.SingleOrDefaultAsync(m => m.InstituicaoID == id);
-            _context.Instituicoes.Remove(instituicao);
-            await _context.SaveChangesAsync();
+            TempData["Message"] = "Instituição " + instituicao.Nome.ToUpper() + "foi removida";
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InstituicaoExists(long? id)
+        private async Task<bool> InstituicaoExists(long? id)
         {
-            return _context.Instituicoes.Any(i => i.InstituicaoID == id);
+            return await instituicaoDAL.ObterInstituicaoPorId((long)id) != null ;
         }
 
         private async Task<IActionResult> ObterVisaoInstituicaoPorId(long? id)
