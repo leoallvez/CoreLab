@@ -20,7 +20,7 @@ namespace Universidade.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await instituicaoDAL.ObterInstituicoesClassificadasPorNome().ToListAsync());
+            return View(await instituicaoDAL.OrderByName().ToListAsync());
         }
 
         public IActionResult Create()

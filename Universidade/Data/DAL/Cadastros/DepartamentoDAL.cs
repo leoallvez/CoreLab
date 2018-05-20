@@ -16,14 +16,14 @@ namespace Universidade.Data.DAL.Cadastros
             _context = context;
         }
 
-        public IQueryable<Departamento> ObterDepartamentosClassificadasPorNome()
+        public IQueryable<Departamento> OrderByName()
         {
             return _context.Departamentos
                 .Include(i => i.Instituicao)
                 .OrderBy(d => d.Nome);
         }
 
-        public async Task<Departamento> ObterDepartamentoPorId(long id)
+        public async Task<Departamento> Find(long id)
         {
             var departamento = await _context.Departamentos
                                              .SingleOrDefaultAsync(m => m.DepartamentoID == id);
@@ -35,12 +35,11 @@ namespace Universidade.Data.DAL.Cadastros
             return departamento;
         }
 
-        public async Task<Departamento> GravarDepartamento(Departamento departamento)
+        public async Task<Departamento> CreateOrUpdate(Departamento departamento)
         {
             if (departamento.DepartamentoID > 0)
             {
                 _context.Departamentos.Add(departamento);
-
             }
             else
             {
@@ -51,9 +50,9 @@ namespace Universidade.Data.DAL.Cadastros
             return departamento;
         }
 
-        public async Task<Departamento> ElimitarDepartamentoPorId(long id)
+        public async Task<Departamento> Delete(long id)
         {
-            Departamento departamento = await ObterDepartamentoPorId(id);
+            Departamento departamento = await Find(id);
             _context.Departamentos.Remove(departamento);
             await _context.SaveChangesAsync();
             return departamento;

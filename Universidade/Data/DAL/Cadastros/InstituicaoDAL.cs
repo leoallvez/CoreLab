@@ -16,7 +16,7 @@ namespace Universidade.Data.DAL.Cadastros
             _context = context;
         }
 
-        public IQueryable<Instituicao> ObterInstituicoesClassificadasPorNome()
+        public IQueryable<Instituicao> OrderByName()
         {
             return _context.Instituicoes.OrderBy(i => i.Nome);
         }
