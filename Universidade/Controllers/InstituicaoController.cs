@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Universidade.Data;
 using Models.Cadastros;
+using System.Threading.Tasks;
+using Universidade.Data;
 using Universidade.Data.DAL.Cadastros;
 
 namespace Universidade.Controllers
