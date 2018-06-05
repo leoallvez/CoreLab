@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Models.Cadastros;
 using System.Threading.Tasks;
+using Models.Discente;
 
 namespace Universidade.Data
 {
@@ -15,6 +16,7 @@ namespace Universidade.Data
         public DbSet<Instituicao> Instituicoes { get; set; }
         public DbSet<Curso> Cursos { get; set; }
         public DbSet<CursoDisciplina> Disciplinas { get; set; }
+        public DbSet<Academico> Academicos { get; set; }
 
         //Sobrescrita da tabela em relação ao atributo de contexto.
         /**
